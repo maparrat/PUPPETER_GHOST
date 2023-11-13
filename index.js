@@ -108,6 +108,62 @@ const isEditorReady = await page.$('.gh-editor-title-container page-improvements
 
    // Tomar una captura de pantalla al finalizar la prueba
    await page.screenshot({ path: 'title_update_result.png' });
+//------------------------------------------------------------------------------------------------------------
+// Navegar a la URL para crear un nuevo miembro
+await page.goto('http://localhost:2368/ghost/#/members/new');
+
+// Esperar a que la página de creación de miembros se cargue completamente
+await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+// Introducir información del nuevo miembro (ajusta los selectores según tu página)
+await page.type('[name="name"]', 'miguel');
+await page.type('[name="email"]', 'miguel19999parra@gmail.com');
+
+
+await page.click('#ember106');
+await page.screenshot({ path: 'membererror_result.png' });
+
+//--------------------------------------------------------
+//crea el usurario correctamente
+
+await page.goto('http://localhost:2368/ghost/#/members/new');
+
+// Esperar a que la página de creación de miembros se cargue completamente
+await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+// Introducir información del nuevo miembro (ajusta los selectores según tu página)
+await page.type('[name="name"]', 'miguel');
+await page.type('[name="email"]', 'miguelparra@gmail.com');
+
+
+await page.click('#ember106');
+await page.screenshot({ path: 'member_result.png' });
+//---------------------------------------------------------------------
+//Elimina un miembro}
+await page.goto('http://localhost:2368/ghost/#/members');
+
+// Esperar a que la página de miembros se cargue completamente
+await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+
+await page.click('#ember294');
+
+// Hacer clic en el botón para eliminar el miembro 
+await page.click('#ember306');
+
+
+// Hacer clic en el botón para eliminar el miembro 
+await page.click('#ember306');
+// Esperar a que aparezca el cuadro de confirmación
+await page.waitForSelector('.delete-member');
+
+// Hacer clic en el botón de confirmación de eliminación 
+await page.click('.modal-content');
+await page.click('#ember314');
+// Esperar a que se complete la eliminación
+await page.waitForNavigation({ waitUntil: 'networkidle0' });
+await page.screenshot({ path: 'delete_result.png' });
+//---------------------------------------------------------------
 // Cerrar el navegador
 await browser.close();
 })();
